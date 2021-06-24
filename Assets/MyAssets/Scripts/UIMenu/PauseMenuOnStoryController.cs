@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// ポーズメニュー(現時点ではストーリーフェーズのみ想定)の、表示・非表示やフォーカス遷移などを制御する
+/// </summary>
 public class PauseMenuOnStoryController : MonoBehaviour
 {
     /// <summary>
@@ -43,7 +46,6 @@ public class PauseMenuOnStoryController : MonoBehaviour
     /// <returns></returns>
     IEnumerator FocusButtonNextFrame(GameObject buttonObj)
     {
-        yield return null;
         yield return null;
 
         EventSystem.current.SetSelectedGameObject(buttonObj);
