@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-	
+	[SerializeField]
+	string mainCameraTag = "MainCamera";
+
+	bool isRunning = false;
+	Vector3 moveDirection = Vector3.zero;
 
 	private float speed = 3.5f;
 	private float speed2 = 5.0f;
 
-	void Start()
+    public bool IsRunning { get => isRunning; }
+    public Vector3 MoveDirection { get => moveDirection; }
+
+    void Start()
     {
 		GetComponent<Rigidbody>().maxAngularVelocity = 100.0f;
 	}
@@ -39,12 +46,17 @@ public class CubeController : MonoBehaviour
 		}*/
 
 		float sp = speed;
-		if (Input.GetButton("Jump")) sp = speed2;
+		if (Input.GetButton("Jump"))
+		{
+			sp = speed2;
+			isRunning = true;
+		}
+		else isRunning = false;
 
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-		transform.position += move.normalized * sp * Time.deltaTime;
+		moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized;
+		transform.position += moveDirection * sp * Time.deltaTime;
 
-		transform.forward = move.normalized;
+		if(isRunning) transform.forward = moveDirection;
 
 
 		//　ここまで
