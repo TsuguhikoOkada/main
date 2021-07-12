@@ -25,7 +25,7 @@ public class WeaponInfo : MonoBehaviour
     /// 武器名
     /// </summary>
     [SerializeField]
-    string name = "武器の名前";
+    string weaponName = "素手";
 
     /// <summary>
     /// 武器攻撃力
@@ -34,11 +34,23 @@ public class WeaponInfo : MonoBehaviour
     int weaponPower = 10;
 
 
+    /// <summary>
+    /// この武器で攻撃するときの強攻撃フラグ
+    /// </summary>
+    bool doStrongAttack = false;
+    /// <summary>
+    /// この武器で攻撃するときの威力補正
+    /// </summary>
+    float powerRatio = 1.0f;
+
+
 
     /* プロパティ */
     public CharacterStatus Status { get => status; set => status = value; }
     public int WeaponPower { get => weaponPower; }
-    public string Name { get => name; }
+    public string WeaponName { get => weaponName; }
+    public bool DoStrongAttack { get => doStrongAttack; set => doStrongAttack = value; }
+    public float PowerRatio { get => powerRatio; set => powerRatio = value; }
 
 
 

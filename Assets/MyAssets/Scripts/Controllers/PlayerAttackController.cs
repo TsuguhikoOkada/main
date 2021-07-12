@@ -24,6 +24,13 @@ public class PlayerAttackController : MonoBehaviour
     /// </summary>
     [SerializeField, Tooltip("素手の場合の武器名")] string weapon_bareHand = "素手";
 
+
+    /// <summary>
+    /// キャラクターの能力値
+    /// </summary>
+    CharacterStatus status = default;
+
+
     /// <summary>
     /// 弱攻撃の実施を要求
     /// </summary>
@@ -32,17 +39,14 @@ public class PlayerAttackController : MonoBehaviour
     /// 強攻撃の実施を要求
     /// </summary>
     bool doStrongAttack = false;
-
     /// <summary>
     /// 武器を装備中である
-    /// </summary>7
+    /// </summary>
     bool isArmed = false;
-
     /// <summary>
     /// 攻撃範囲が有効である(ForPlayerGladiatorAnimatorから変更)
     /// </summary>
     bool isAttacking = false;
-
     /// <summary>
     /// 他のアクションの受付を許可しているか(ForPlayerGladiatorAnimatorから変更)
     /// </summary>
@@ -50,11 +54,11 @@ public class PlayerAttackController : MonoBehaviour
 
 
 
-    public bool DoCommonAttack { get => doCommonAttack; set => doCommonAttack = value; }
-    public bool DoStrongAttack { get => doStrongAttack; set => doStrongAttack = value; }
-    public bool IsArmed { get => isArmed; set => isArmed = value; }
-    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
-    public bool IsAcceptOtherActions { get => isAcceptOtherActions; set => isAcceptOtherActions = value; }
+    public bool DoCommonAttack { get => doCommonAttack; }
+    public bool DoStrongAttack { get => doStrongAttack; }
+    public bool IsArmed { get => isArmed; }
+    public bool IsAttacking { set => isAttacking = value; }
+    public bool IsAcceptOtherActions { set => isAcceptOtherActions = value; }
 
 
 
@@ -63,6 +67,7 @@ public class PlayerAttackController : MonoBehaviour
     void Start()
     {
         weapons = GetComponentsInChildren<WeaponInfo>();
+        status = GetComponentInChildren<CharacterStatus>();
         CheckArmed();
     }
 
@@ -83,6 +88,15 @@ public class PlayerAttackController : MonoBehaviour
             {
                 doStrongAttack = true;
             }
+
+            //武器に、強攻撃であるかの情報と威力補正情報を渡す
+            foreach(WeaponInfo wep in weapons)
+            {
+                wep.DoStrongAttack = doStrongAttack;
+
+                wep.PowerRatio = 1.0f;
+                if (doStrongAttack) wep.PowerRatio = 1.5f;
+            }
         }
         
 
@@ -93,7 +107,11 @@ public class PlayerAttackController : MonoBehaviour
             //武器毎に当たり判定コライダーを起動
             foreach (WeaponInfo wep in weapons)
             {
-                if (isArmed || wep.Name == weapon_bareHand)
+                if (isArmed)
+                {
+                    if(wep.WeaponName != weapon_bareHand) wep.RangeActivator(true);
+                }
+                else
                 {
                     wep.RangeActivator(true);
                 }
@@ -110,17 +128,22 @@ public class PlayerAttackController : MonoBehaviour
     }
 
     /// <summary>
-    /// 武器を装備中かチェック
+    /// 武器情報をチェック
+    /// ・素手以外の武器を装備中かチェック
+    /// ・武器すべてに自分のタグを適用
+    /// ・武器に自分のステータス情報のアクセッサーを渡す
     /// </summary>
     void CheckArmed()
     {
         isArmed = false;
         foreach (WeaponInfo wep in weapons)
         {
-            if (wep.Name == weapon_bareHand) continue;
+            wep.tag = this.gameObject.tag;
+            wep.Status = status;
+
+            if (isArmed || wep.WeaponName == weapon_bareHand) continue;
 
             isArmed = true;
-            break;
         }
     }
 }

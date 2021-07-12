@@ -12,41 +12,84 @@ public class DamageRange : MonoBehaviour
     /// 対応キャラクターのステータス
     /// </summary>
     [SerializeField]
-    private CharacterStatus status = default;
+    CharacterStatus status = default;
+
+    /// <summary>
+    /// 被攻撃範囲コライダー
+    /// </summary>
+    Collider[] ranges = default;
+
+
+    /// <summary>
+    /// ダメージを受けた
+    /// </summary>
+    bool isDamaged = false;
+
+    /// <summary>
+    /// 強攻撃だった
+    /// </summary>
+    bool isHardHit = false;
+
+
+    /// <summary>
+    /// ダメージを受けた方向(-π～0～π)
+    /// </summary>
+    float damagedDirection = 0.0f;
+
+
+    public bool IsDamaged { get => isDamaged; set => isDamaged = value; }
+    public bool IsHardHit { get => isHardHit; }
+    public float DamagedDirection { get => damagedDirection; }
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ranges = GetComponents<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //倒されたら、ダメージを受けるコライダーを無効化
+        if(status.IsDefeated)
+        {
+            foreach(Collider range in ranges)
+            {
+                range.enabled = false;
+            }
+        }
     }
 
+
     /// <summary>
-    /// 
+    /// 敵対者からの攻撃を受け、HPを減らす
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if((other.tag == "Enemy" && transform.tag == "Player")
-            || (other.tag == "Player" && transform.tag == "Enemy"))
+        if((other.CompareTag("Enemy") && transform.CompareTag("Player"))
+            || (other.CompareTag("Player") && transform.CompareTag("Enemy")))
         {
             WeaponInfo attacker = other.gameObject.GetComponent<WeaponInfo>();
             if (!attacker) return;
 
+            //ダメージをうけた
+            isDamaged = true;
+
+            //強攻撃かの判定
+            isHardHit = attacker.DoStrongAttack;
+
+            //どの方向から受けたかを求める
+            Vector3 vec = Vector3.Normalize(other.transform.position - this.transform.position);
+            damagedDirection = Vector3.SignedAngle(this.transform.forward, vec, this.transform.up);
 
             //ダメージ計算(仮)
-            int damage = attacker.Status.Power + attacker.WeaponPower;
+            int damage = (int)((attacker.Status.Power + attacker.WeaponPower) * attacker.PowerRatio);
 
             //HPを減らす
             status.NowHp = Mathf.Max(status.NowHp - damage, 0);
         }
-
-        
     }
 }

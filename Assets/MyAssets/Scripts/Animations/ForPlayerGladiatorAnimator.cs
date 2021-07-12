@@ -6,40 +6,9 @@ using UnityEngine;
 /// プレイヤーのモデルのアニメーターにパラメーターを渡すコンポーネント
 /// </summary>
 [RequireComponent(typeof(Animator))]
-public class ForPlayerGladiatorAnimator : MonoBehaviour
+public class ForPlayerGladiatorAnimator : GladiatorAnimator
 {
-    [Header("Animatorに渡すパラメーター名")]
-    /// <summary>
-    /// パラメーター名：武器所持フラグ
-    /// </summary>
-    [SerializeField, Tooltip("パラメーター名：武器所持フラグ")] string Param_isArmed = "剣を持っているか";
-    /// <summary>
-    /// パラメーター名：X軸速度
-    /// </summary>
-    [SerializeField, Tooltip("パラメーター名：X軸速度")] string Param_moveDirectionX = "X軸の速度";
-    /// <summary>
-    /// パラメーター名：Y軸速度
-    /// </summary>
-    [SerializeField, Tooltip("パラメーター名：Y軸速度")] string Param_moveDirectionY = "Y軸の速度";
-    /// <summary>
-    /// パラメーター名：走行フラグ
-    /// </summary>
-    [SerializeField, Tooltip("パラメーター名：走行フラグ")] string Param_isRunning = "走っているか";
-    /// <summary>
-    /// パラメーター名:攻撃フラグ
-    /// </summary>
-    [SerializeField, Tooltip("パラメーター名：攻撃フラグ")] string Param_isAttack = "攻撃指示があったか";
-    /// <summary>
-    /// パラメーター名：強攻撃フラグ
-    /// </summary>
-    [SerializeField, Tooltip("パラメーター名：強攻撃フラグ")] string Param_isStrongAttack = "強攻撃かどうか";
-
-
-
-    /// <summary>
-    /// 対象のアニメーター
-    /// </summary>
-    Animator animator = default;
+    
 
     /// <summary>
     /// 対象の移動処理コンポーネント
@@ -53,13 +22,14 @@ public class ForPlayerGladiatorAnimator : MonoBehaviour
 
 
 
-
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        status = GetComponentInParent<CharacterStatus>();
         moveCtrl = GetComponentInParent<CubeController>();
         attackCtrl = GetComponentInParent<PlayerAttackController>();
+        damageRange = GetComponentInParent<DamageRange>();
     }
 
     // Update is called once per frame
@@ -71,52 +41,46 @@ public class ForPlayerGladiatorAnimator : MonoBehaviour
         animator.SetFloat(Param_moveDirectionY, md.y);
         animator.SetBool(Param_isRunning, (moveCtrl.IsRunning && md.sqrMagnitude > 0.0f));
 
+        //弱攻撃を放った
         if (attackCtrl.DoCommonAttack)
         {
             attackCtrl.IsAcceptOtherActions = false;
             animator.SetTrigger(Param_isAttack);
             animator.SetBool(Param_isStrongAttack, false);
         }
+        //強攻撃を放った
         else if (attackCtrl.DoStrongAttack)
         {
             attackCtrl.IsAcceptOtherActions = false;
             animator.SetTrigger(Param_isAttack);
             animator.SetBool(Param_isStrongAttack, true);
         }
-        
+
+
+        //攻撃をうけた
+        if (damageRange.IsDamaged)
+        {
+            damageRange.IsDamaged = false;
+            animator.SetTrigger(Param_isDamaged);
+            animator.SetBool(Param_isHardHit, damageRange.IsHardHit);
+            animator.SetFloat(Param_damageDirectionAngle, damageRange.DamagedDirection);
+            if(status.IsDefeated) animator.SetTrigger(Param_isDefeated);
+        }
+
     }
 
-    public void AttackStart()
+    public new void AttackStart()
     {
         attackCtrl.IsAttacking = true;
     }
 
-    public void AttackEnd()
+    public new void AttackEnd()
     {
         attackCtrl.IsAttacking = false;
     }
 
-    public void AcceptOtherActions()
+    public new void AcceptOtherActions()
     {
         attackCtrl.IsAcceptOtherActions = true;
-    }
-
-
-
-
-
-    public void Hit()
-    {
-
-    }
-
-    public void FootR()
-    {
-
-    }
-
-    public void FootL()
-    {
-
     }
 }

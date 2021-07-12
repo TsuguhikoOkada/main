@@ -8,24 +8,28 @@ public class CharacterStatus : MonoBehaviour
     /// 最大の体力
     /// </summary>
     [SerializeField]
-    private int maxHp = 100;
+    int maxHp = 100;
     /// <summary>
     /// 現在の体力
     /// </summary>
     [SerializeField]
-    private int nowHp = 100;
+    int nowHp = 100;
     /// <summary>
     /// 攻撃力
     /// </summary>
     [SerializeField]
-    private int power = 30;
+    int power = 30;
     /// <summary>
     /// スタミナ
     /// </summary>
     [SerializeField]
-    private int stamina = 20;
+    int stamina = 20;
 
 
+    /// <summary>
+    /// 倒されたか
+    /// </summary>
+    bool isDefeated = false;
 
 
 
@@ -34,6 +38,7 @@ public class CharacterStatus : MonoBehaviour
     public int NowHp { get => nowHp; set => nowHp = value; }
     public int Power { get => power; set => power = value; }
     public int Stamina { get => stamina; set => stamina = value; }
+    public bool IsDefeated { get => isDefeated; set => isDefeated = value; }
 
 
 
@@ -46,7 +51,7 @@ public class CharacterStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        isDefeated = nowHp <= 0;
     }
 
 
