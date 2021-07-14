@@ -8,14 +8,23 @@ public class CubeController : MonoBehaviour
 	[SerializeField]
 	string mainCameraTag = "MainCamera";
 
+	[SerializeField]
+	string button_moveHorizontal = "Horizontal";
+	[SerializeField]
+	string button_moveVertical = "Vertical";
+
 	bool isRunning = false;
 	Vector3 moveDirection = Vector3.zero;
 
 	private float speed = 3.5f;
 	private float speed2 = 5.0f;
 
+
+	bool isMovable = true;
+
     public bool IsRunning { get => isRunning; }
     public Vector3 MoveDirection { get => moveDirection; }
+    public bool IsMovable { set => isMovable = value; }
 
     void Start()
     {
@@ -26,9 +35,9 @@ public class CubeController : MonoBehaviour
 	void Update()
 	{
 
-		//　歩くコード
+        //　歩くコード
 
-		/*if (Input.GetKey(KeyCode.RightArrow))
+        /*if (Input.GetKey(KeyCode.RightArrow))
 		{
 			transform.position += Vector3.right * speed * Time.deltaTime;
 		}
@@ -45,18 +54,22 @@ public class CubeController : MonoBehaviour
 			transform.position += Vector3.back * speed * Time.deltaTime;
 		}*/
 
-		float sp = speed;
-		if (Input.GetButton("Jump"))
-		{
-			sp = speed2;
-			isRunning = true;
+        if (isMovable)
+        {
+			float sp = speed;
+			if (Input.GetButton("Jump"))
+			{
+				sp = speed2;
+				isRunning = true;
+			}
+			else isRunning = false;
+
+			moveDirection = new Vector3(Input.GetAxis(button_moveHorizontal), 0.0f, Input.GetAxis(button_moveVertical)).normalized;
+			transform.position += moveDirection * sp * Time.deltaTime;
+
+			if (isRunning) transform.forward = moveDirection;
 		}
-		else isRunning = false;
 
-		moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")).normalized;
-		transform.position += moveDirection * sp * Time.deltaTime;
-
-		if(isRunning) transform.forward = moveDirection;
 
 
 		//　ここまで
