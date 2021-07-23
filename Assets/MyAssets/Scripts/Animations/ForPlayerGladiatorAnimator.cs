@@ -36,24 +36,24 @@ public class ForPlayerGladiatorAnimator : GladiatorAnimator
     void Update()
     {
         Vector2 md = new Vector2(moveCtrl.MoveDirection.x, moveCtrl.MoveDirection.z);
-        animator.SetBool(Param_isArmed, attackCtrl.IsArmed);
-        animator.SetFloat(Param_moveDirectionX, md.x);
-        animator.SetFloat(Param_moveDirectionY, md.y);
-        animator.SetBool(Param_isRunning, (moveCtrl.IsRunning && md.sqrMagnitude > 0.0f));
+        animator.SetBool(ParamIsArmed, attackCtrl.IsArmed);
+        animator.SetFloat(ParamMoveDirectionX, md.x);
+        animator.SetFloat(ParamMoveDirectionY, md.y);
+        animator.SetBool(ParamIsRunning, (moveCtrl.IsRunning && md.sqrMagnitude > 0.0f));
 
         //é„çUåÇÇï˙Ç¡ÇΩ
         if (attackCtrl.DoCommonAttack)
         {
             attackCtrl.IsAcceptOtherActions = false;
-            animator.SetTrigger(Param_isAttack);
-            animator.SetBool(Param_isStrongAttack, false);
+            animator.SetTrigger(ParamIsAttack);
+            animator.SetBool(ParamIsStrongAttack, false);
         }
         //ã≠çUåÇÇï˙Ç¡ÇΩ
         else if (attackCtrl.DoStrongAttack)
         {
             attackCtrl.IsAcceptOtherActions = false;
-            animator.SetTrigger(Param_isAttack);
-            animator.SetBool(Param_isStrongAttack, true);
+            animator.SetTrigger(ParamIsAttack);
+            animator.SetBool(ParamIsStrongAttack, true);
         }
 
 
@@ -61,10 +61,11 @@ public class ForPlayerGladiatorAnimator : GladiatorAnimator
         if (damageRange.IsDamaged)
         {
             damageRange.IsDamaged = false;
-            animator.SetTrigger(Param_isDamaged);
-            animator.SetBool(Param_isHardHit, damageRange.IsHardHit);
-            animator.SetFloat(Param_damageDirectionAngle, damageRange.DamagedDirection);
-            if(status.IsDefeated) animator.SetTrigger(Param_isDefeated);
+            attackCtrl.IsAcceptOtherActions = false;
+            animator.SetTrigger(ParamIsDamaged);
+            animator.SetBool(ParamIsHardHit, damageRange.IsHardHit);
+            animator.SetFloat(ParamDamageDirectionAngle, damageRange.DamagedDirection);
+            if(status.IsDefeated) animator.SetTrigger(ParamIsDefeated);
         }
 
     }

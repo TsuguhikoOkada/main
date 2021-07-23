@@ -29,6 +29,7 @@ public class CharacterStatus : MonoBehaviour
     /// <summary>
     /// “|‚³‚ê‚½‚©
     /// </summary>
+    [SerializeField]
     bool isDefeated = false;
 
 
