@@ -8,43 +8,43 @@ public class GladiatorAnimator : MonoBehaviour
     /// <summary>
     /// パラメーター名：武器所持フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：武器所持フラグ")] protected string Param_isArmed = "剣を持っているか";
+    [SerializeField, Tooltip("パラメーター名：武器所持フラグ")] protected string ParamIsArmed = "isArmed";
     /// <summary>
     /// パラメーター名：X軸速度
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：X軸速度")] protected string Param_moveDirectionX = "X軸の速度";
+    [SerializeField, Tooltip("パラメーター名：X軸速度")] protected string ParamMoveDirectionX = "moveDirectionX";
     /// <summary>
     /// パラメーター名：Y軸速度
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：Y軸速度")] protected string Param_moveDirectionY = "Y軸の速度";
+    [SerializeField, Tooltip("パラメーター名：Y軸速度")] protected string ParamMoveDirectionY = "moveDirectionY";
     /// <summary>
     /// パラメーター名：走行フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：走行フラグ")] protected string Param_isRunning = "走っているか";
+    [SerializeField, Tooltip("パラメーター名：走行フラグ")] protected string ParamIsRunning = "isRunning";
     /// <summary>
     /// パラメーター名:攻撃フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：攻撃フラグ")] protected string Param_isAttack = "攻撃指示があったか";
+    [SerializeField, Tooltip("パラメーター名：攻撃フラグ")] protected string ParamIsAttack = "isAttack";
     /// <summary>
     /// パラメーター名：強攻撃フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：強攻撃実行フラグ")] protected string Param_isStrongAttack = "放った攻撃が強攻撃かどうか";
+    [SerializeField, Tooltip("パラメーター名：強攻撃実行フラグ")] protected string ParamIsStrongAttack = "isStrongAttack";
     /// <summary>
     /// パラメーター名：強攻撃フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：被ダメージフラグ")] protected string Param_isDamaged = "ダメージを受けたか";
+    [SerializeField, Tooltip("パラメーター名：被ダメージフラグ")] protected string ParamIsDamaged = "isDamaged";
     /// <summary>
     /// パラメーター名：強攻撃フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：強攻撃被弾フラグ")] protected string Param_isHardHit = "受けた攻撃が強攻撃かどうか";
+    [SerializeField, Tooltip("パラメーター名：強攻撃被弾フラグ")] protected string ParamIsHardHit = "isHardHit";
     /// <summary>
     /// パラメーター名：被ダメージ方向(正面を0°)
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：被ダメージ方向(正面を0°)")] protected string Param_damageDirectionAngle = "正面を0°とした時の被ダメージ方向角度";
+    [SerializeField, Tooltip("パラメーター名：被ダメージ方向(正面を0°)")] protected string ParamDamageDirectionAngle = "damageDirectionAngle";
     /// <summary>
     /// パラメーター名：行動不能フラグ
     /// </summary>
-    [SerializeField, Tooltip("パラメーター名：行動不能フラグ")] protected string Param_isDefeated = "倒されたか";
+    [SerializeField, Tooltip("パラメーター名：行動不能フラグ")] protected string ParamIsDefeated = "isDefeated";
 
 
 

@@ -9,8 +9,8 @@ public class PlayerAttackController : MonoBehaviour
 {
     [Header("inputmanager上のボタン名")]
     
-    [SerializeField, Tooltip("弱攻撃ボタン名")] string button_commonAttack = "Fire1";
-    [SerializeField, Tooltip("強攻撃ボタン名")] string button_strongAttack = "Fire2";
+    [SerializeField, Tooltip("弱攻撃ボタン名")] string buttonNameCommonAttack = "Fire1";
+    [SerializeField, Tooltip("強攻撃ボタン名")] string buttonNameStrongAttack = "Fire2";
 
     [Space]
 
@@ -22,7 +22,7 @@ public class PlayerAttackController : MonoBehaviour
     /// <summary>
     /// 素手の武器名
     /// </summary>
-    [SerializeField, Tooltip("素手の場合の武器名")] string weapon_bareHand = "素手";
+    [SerializeField, Tooltip("素手の場合の武器名")] string weaponBareHand = "素手";
 
 
     /// <summary>
@@ -80,11 +80,11 @@ public class PlayerAttackController : MonoBehaviour
         //攻撃アニメーションが攻撃をし終えているので、次の操作入力を許可している
         if (isAcceptOtherActions)
         {
-            if (Input.GetButtonDown(button_commonAttack))
+            if (Input.GetButtonDown(buttonNameCommonAttack))
             {
                 doCommonAttack = true;
             }
-            else if (Input.GetButtonDown(button_strongAttack))
+            else if (Input.GetButtonDown(buttonNameStrongAttack))
             {
                 doStrongAttack = true;
             }
@@ -109,7 +109,7 @@ public class PlayerAttackController : MonoBehaviour
             {
                 if (isArmed)
                 {
-                    if(wep.WeaponName != weapon_bareHand) wep.RangeActivator(true);
+                    if(wep.WeaponName != weaponBareHand) wep.RangeActivator(true);
                 }
                 else
                 {
@@ -141,7 +141,7 @@ public class PlayerAttackController : MonoBehaviour
             wep.tag = this.gameObject.tag;
             wep.Status = status;
 
-            if (isArmed || wep.WeaponName == weapon_bareHand) continue;
+            if (isArmed || wep.WeaponName == weaponBareHand) continue;
 
             isArmed = true;
         }

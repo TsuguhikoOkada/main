@@ -57,7 +57,7 @@ public class CubeController : MonoBehaviour
         if (isMovable)
         {
 			float sp = speed;
-			if (Input.GetButton("Jump"))
+			if (Input.GetButton("Fire3"))
 			{
 				sp = speed2;
 				isRunning = true;
