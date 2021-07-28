@@ -19,6 +19,9 @@ public class CubeController : MonoBehaviour
 	private float speed = 3.5f;
 	private float speed2 = 5.0f;
 
+	Transform mainCameraTransform = default;
+
+	CharacterStatus status = default;
 
 	bool isMovable = true;
 
@@ -29,15 +32,19 @@ public class CubeController : MonoBehaviour
     void Start()
     {
 		GetComponent<Rigidbody>().maxAngularVelocity = 100.0f;
+		mainCameraTransform = GameObject.FindWithTag(mainCameraTag).transform;
+		status = GetComponentInChildren<CharacterStatus>();
+
 	}
 	
 
 	void Update()
 	{
+		if (status.IsDefeated) isMovable = false;
 
-        //　歩くコード
+		//　歩くコード
 
-        /*if (Input.GetKey(KeyCode.RightArrow))
+		/*if (Input.GetKey(KeyCode.RightArrow))
 		{
 			transform.position += Vector3.right * speed * Time.deltaTime;
 		}
@@ -54,7 +61,7 @@ public class CubeController : MonoBehaviour
 			transform.position += Vector3.back * speed * Time.deltaTime;
 		}*/
 
-        if (isMovable)
+		if (isMovable)
         {
 			float sp = speed;
 			if (Input.GetButton("Fire3"))
@@ -64,10 +71,29 @@ public class CubeController : MonoBehaviour
 			}
 			else isRunning = false;
 
-			moveDirection = new Vector3(Input.GetAxis(button_moveHorizontal), 0.0f, Input.GetAxis(button_moveVertical)).normalized;
+			//カメラ視点向き
+			Transform cameraTransform = mainCameraTransform;
+			//カメラ視点の正面(y軸無視)
+			Vector3 forward = cameraTransform.forward;
+			forward.y = 0.0f;
+			forward = forward.normalized;
+			//カメラ視点の右方向
+			Vector3 right = cameraTransform.right;
+			moveDirection = (forward * Input.GetAxis(button_moveVertical) 
+							+ right * Input.GetAxis(button_moveHorizontal)).normalized;
+
 			transform.position += moveDirection * sp * Time.deltaTime;
 
-			if (isRunning) transform.forward = moveDirection;
+			if(isRunning)
+            {
+				Quaternion charDirectionQuaternion = Quaternion.LookRotation(moveDirection);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, charDirectionQuaternion, 180.0f * Time.deltaTime);
+            }
+            else
+            {
+				Quaternion charDirectionQuaternion = Quaternion.LookRotation(Vector3.Normalize(forward));
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, charDirectionQuaternion, 360.0f * Time.deltaTime);
+			}
 		}
 
 

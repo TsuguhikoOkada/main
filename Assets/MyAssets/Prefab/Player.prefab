@@ -1856,6 +1856,34 @@ Transform:
   m_Father: {fileID: 1657173925469774122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &9013780827653279257
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9013780826668878544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3
+  m_Direction: 2
+  m_Center: {x: -0.15, y: -0.15, z: 1.65}
+--- !u!114 &9013780827653279258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9013780826668878544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f209a1fc10408d46bb90d3168e6234d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: 2Hand-Sword
+  weaponPower: 10
 --- !u!1 &9013780827374812142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +1993,7 @@ MonoBehaviour:
   nowHp: 100
   power: 30
   stamina: 20
+  isDefeated: 0
 --- !u!114 &9013780827543083799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1978,6 +2007,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status: {fileID: 9013780827543083793}
+  hitEffects:
+  - {fileID: 9066269137529960251, guid: 04c12500670ad9d43bad8d576ee2d784, type: 3}
 --- !u!136 &9013780827543083792
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1992,34 +2023,6 @@ CapsuleCollider:
   m_Height: 2.6
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
---- !u!136 &9013780827653279257
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013780826668878544}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3
-  m_Direction: 2
-  m_Center: {x: -0.15, y: -0.15, z: 1.65}
---- !u!114 &9013780827653279258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013780826668878544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f209a1fc10408d46bb90d3168e6234d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: "\u6B66\u5668\u306E\u540D\u524D"
-  weaponPower: 10
 --- !u!1 &9013780828030114815
 GameObject:
   m_ObjectHideFlags: 0
