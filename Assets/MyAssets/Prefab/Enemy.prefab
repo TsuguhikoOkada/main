@@ -285,10 +285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aedea63ff809f64495b953fb680a608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
-  nowHp: 100
+  maxHp: 200
+  nowHp: 200
   power: 30
   stamina: 20
+  isDefeated: 0
 --- !u!114 &5836283259652865506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status: {fileID: 5836283259652865504}
+  hitEffects:
+  - {fileID: 9066269137529960251, guid: 04c12500670ad9d43bad8d576ee2d784, type: 3}
 --- !u!136 &5836283259652865507
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -19,6 +19,12 @@ public class DamageRange : MonoBehaviour
     /// </summary>
     Collider[] ranges = default;
 
+    /// <summary>
+    /// 攻撃がヒットしたときに発生させるパーティクル
+    /// </summary>
+    [SerializeField]
+    GameObject[] hitEffects = default;
+
 
     /// <summary>
     /// ダメージを受けた
@@ -80,6 +86,21 @@ public class DamageRange : MonoBehaviour
 
             //強攻撃かの判定
             isHardHit = attacker.DoStrongAttack;
+
+            //パーティクル生成手続き
+            if(hitEffects.Length > 0)
+            {
+                foreach(GameObject effect in hitEffects)
+                {
+                    if (effect)
+                    {
+                        //パーティクル生成
+                        GameObject initialized = Instantiate(effect);
+                        initialized.transform.position = other.ClosestPoint(other.transform.position);
+                        Destroy(initialized, 3.0f);
+                    }
+                }
+            }
 
             //どの方向から受けたかを求める
             Vector3 vec = Vector3.Normalize(other.transform.position - this.transform.position);
