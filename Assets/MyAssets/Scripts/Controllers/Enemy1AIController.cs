@@ -126,11 +126,11 @@ public class Enemy1AIController : MonoBehaviour
     /// <summary>
     /// 対峙する際にとる距離
     /// </summary>
-    float confrontDistance = 2.0f;
+    float confrontDistance = 1.0f;
     /// <summary>
     /// 対峙後再度追跡を開始する、離された距離
     /// </summary>
-    float seekAgainDistance = 4.0f;
+    float seekAgainDistance = 3.0f;
     /// <summary>
     /// 移動時の目的地
     /// </summary>

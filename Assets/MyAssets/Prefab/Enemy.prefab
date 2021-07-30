@@ -96,7 +96,7 @@ MonoBehaviour:
   navmeshGroundLayers:
     serializedVersion: 2
     m_Bits: 64
-  warlikeRatio: 0.3
+  warlikeRatio: 0.8
   destinationBase: {fileID: 0}
   target: {fileID: 0}
 --- !u!195 &5836283259102527764

@@ -60,6 +60,12 @@ public class NovelMessageController : MonoBehaviour
     /// </summary>
     WaitForSeconds waitForSeconds = default;
 
+    /// <summary>
+    /// すべてのメッセージを出した後シーンを変更する場合、SceneChangerを参照する
+    /// </summary>
+    [SerializeField]
+    SceneChanger sc = default;
+
 
     /// <summary>
     /// 文章格納庫
