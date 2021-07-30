@@ -61,7 +61,7 @@ public class PauseMenuOnStoryController : MonoBehaviour
         mainMenu.SetActive(true);
         confirmMenu.SetActive(false);
 
-        menuButton.interactable = false;
+        if (menuButton) menuButton.interactable = false;
 
         StartCoroutine(FocusButtonNextFrame(mainMenuFirstFocus));
     }
@@ -74,7 +74,7 @@ public class PauseMenuOnStoryController : MonoBehaviour
         mainMenu.SetActive(false);
         confirmMenu.SetActive(true);
 
-        menuButton.interactable = false;
+        if (menuButton) menuButton.interactable = false;
 
         StartCoroutine(FocusButtonNextFrame(confirmMenuFirstFocus));
     }
@@ -87,7 +87,7 @@ public class PauseMenuOnStoryController : MonoBehaviour
         mainMenu.SetActive(true);
         confirmMenu.SetActive(false);
 
-        menuButton.interactable = true;
+        if (menuButton) menuButton.interactable = true;
 
         menuBackground.SetActive(false);
     }

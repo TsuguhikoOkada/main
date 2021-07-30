@@ -817,9 +817,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PauseMenuOnStoryController, Assembly-CSharp
-        m_MethodName: OpenMenu
+      - m_Target: {fileID: 8609202911776560367}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: BackScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -841,6 +841,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61056d4699af680459e0286c0e10c624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneChanageName: 
+  novelSystem: {fileID: 0}
+  sceneChanageDelayTime: 2
+  blinderAnim: {fileID: 0}
 --- !u!114 &8609202911874275618
 MonoBehaviour:
   m_ObjectHideFlags: 0

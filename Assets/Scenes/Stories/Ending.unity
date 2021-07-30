@@ -276,6 +276,10 @@ MonoBehaviour:
   messageContainer:
   - name: "\u30A8\u30F3\u30C7\u30A3\u30F3\u30B0\u30E1\u30C3\u30BB\u30FC\u30B81"
     whose: 1
+    sentence: "\u3042\u306A\u305F\u306F\u7121\u4E8B\u306B\u8CDE\u91D1\u3092\u7A3C\u304E\u3001\u5974\u96B7\u304B\u3089\u89E3\u653E\u3055\u308C\u308B\u9053\u3092\u9078\u3093\u3060\u2026"
+    speed: 0.2
+  - name: "\u30A8\u30F3\u30C7\u30A3\u30F3\u30B0\u30E1\u30C3\u30BB\u30FC\u30B82"
+    whose: 1
     sentence: "\u9577\u3044\u6226\u3044\u3092\u7D42\u3048\u305F\u25CB\u25CB\u306F\u3001\n\u5974\u96B7\u751F\u6D3B\u304B\u3089\u89E3\u653E\u3055\u308C\u305F\u3002\n\u3057\u304B\u3057\u25CB\u25CB\u306F\u6B69\u307F\u3092\u6B62\u3081\u306A\u3044\u3002\n\u65B0\u305F\u306A\u4EBA\u751F\u306F\u59CB\u307E\u3063\u305F\u3070\u304B\u308A\u306A\u306E\u3060\u3002"
     speed: 0.2
 --- !u!114 &369080355
@@ -730,7 +734,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Congratulations!!
+  m_Text: Congratulation!
 --- !u!222 &1424214432
 CanvasRenderer:
   m_ObjectHideFlags: 0

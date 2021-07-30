@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Instructions.unity
     guid: 985d7add19d8b614297e6a733e0c22a8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Stories/Story_Sample.unity
     guid: a20e9ca83a0a26646a40c7286bdd3a2f
   - enabled: 1
@@ -20,4 +20,25 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Stories/Story1.unity
+    guid: 018117712a01a7147bbf6d4694ca8545
+  - enabled: 1
+    path: Assets/Scenes/Stories/Story2.unity
+    guid: 2e6279a70b62d1b4ab418d2a80c90fab
+  - enabled: 1
+    path: Assets/Scenes/Stories/Story3.unity
+    guid: 2627523dcbeef294c9a282f2b727ea1b
+  - enabled: 1
+    path: Assets/Scenes/Stories/StoryBeforeEnding.unity
+    guid: c3491fbc04bf7334abc6820bf8906a9c
+  - enabled: 1
+    path: Assets/Scenes/Battles/Stage1.unity
+    guid: eec123257667aec47b23ab65f8274c79
+  - enabled: 1
+    path: Assets/Scenes/Battles/Stage2.unity
+    guid: 320d5544d1ba806439778872984c5f97
+  - enabled: 1
+    path: Assets/Scenes/Battles/Stage3.unity
+    guid: c2d3e3568c3defd4b86654fc80398a19
   m_configObjects: {}
