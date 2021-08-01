@@ -96,7 +96,7 @@ public class CubeController : MonoBehaviour
 			}
 		}
 
-
+		
 
 		//　ここまで
 
@@ -124,7 +124,7 @@ public class CubeController : MonoBehaviour
 
 
 		//　ここまで
-		
+
 
 	}
 
