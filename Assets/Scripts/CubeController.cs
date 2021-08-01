@@ -17,7 +17,7 @@ public class CubeController : MonoBehaviour
 	Vector3 moveDirection = Vector3.zero;
 
 	private float speed = 3.5f;
-	private float speed2 = 5.0f;
+	private float speed2 = 7.0f;
 
 	Transform mainCameraTransform = default;
 
@@ -25,12 +25,15 @@ public class CubeController : MonoBehaviour
 
 	bool isMovable = true;
 
+	StaminaBar staminaBar = default;
+
     public bool IsRunning { get => isRunning; }
     public Vector3 MoveDirection { get => moveDirection; }
     public bool IsMovable { set => isMovable = value; }
 
     void Start()
     {
+		staminaBar = GetComponent<StaminaBar>();
 		GetComponent<Rigidbody>().maxAngularVelocity = 100.0f;
 		mainCameraTransform = GameObject.FindWithTag(mainCameraTag).transform;
 		status = GetComponentInChildren<CharacterStatus>();
@@ -64,7 +67,7 @@ public class CubeController : MonoBehaviour
 		if (isMovable)
         {
 			float sp = speed;
-			if (Input.GetButton("Fire3"))
+			if (Input.GetButton("Fire3") && staminaBar.CurrentStamina > 10.0f)
 			{
 				sp = speed2;
 				isRunning = true;
@@ -86,6 +89,8 @@ public class CubeController : MonoBehaviour
 
 			if(isRunning)
             {
+				staminaBar.UseStamina(0.03f);
+
 				Quaternion charDirectionQuaternion = Quaternion.LookRotation(moveDirection);
 				transform.rotation = Quaternion.RotateTowards(transform.rotation, charDirectionQuaternion, 180.0f * Time.deltaTime);
             }
@@ -96,7 +101,7 @@ public class CubeController : MonoBehaviour
 			}
 		}
 
-		
+
 
 		//　ここまで
 
@@ -124,7 +129,7 @@ public class CubeController : MonoBehaviour
 
 
 		//　ここまで
-
+		
 
 	}
 

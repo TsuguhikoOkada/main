@@ -14,6 +14,8 @@ public class StaminaBar : MonoBehaviour
 
     public static StaminaBar instance;
 
+    public float CurrentStamina { get => currentStamina; }
+
     private void Awake()
     {
         instance = this;
