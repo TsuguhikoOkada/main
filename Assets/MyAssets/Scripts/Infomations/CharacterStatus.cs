@@ -57,7 +57,7 @@ public class CharacterStatus : MonoBehaviour
     {
         isDefeated = nowHp <= 0;
 
-        if (isDefeated == true)
+        if (gameObject.CompareTag("Player") && isDefeated == true)
         {
             StartCoroutine(sceneChange());
         }
