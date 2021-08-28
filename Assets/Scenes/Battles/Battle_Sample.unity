@@ -580,10 +580,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5836283259102527767, guid: d4f1c0521db259e4bb5fbcb3303face7, type: 3}
-      propertyPath: aiType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5836283259102527767, guid: d4f1c0521db259e4bb5fbcb3303face7, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 402351378}
@@ -719,7 +715,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013019055}
-  m_LocalRotation: {x: 0.009544628, y: 0.054076515, z: -0.0005169203, w: 0.99849105}
+  m_LocalRotation: {x: 0.009544629, y: 0.054076444, z: -0.0005169197, w: 0.9984911}
   m_LocalPosition: {x: -0.97199655, y: 2.5, z: -8.947358}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -845,7 +841,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084695699}
-  m_LocalRotation: {x: -0.008571027, y: 0.054076944, z: 0.00046419122, w: 0.99849993}
+  m_LocalRotation: {x: -0.008571029, y: 0.054076944, z: 0.00046419137, w: 0.99849993}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1050,7 +1046,6 @@ MonoBehaviour:
   sceneChanageName: 
   novelSystem: {fileID: 0}
   sceneChanageDelayTime: 2
-  blinderAnim: {fileID: 0}
 --- !u!1 &1375392389
 GameObject:
   m_ObjectHideFlags: 3
@@ -1936,10 +1931,6 @@ PrefabInstance:
     - target: {fileID: 7637720256972174117, guid: 2e775225ba202944f800d29ce798715c, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637720256972174120, guid: 2e775225ba202944f800d29ce798715c, type: 3}
-      propertyPath: aiType
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7637720256972174120, guid: 2e775225ba202944f800d29ce798715c, type: 3}
       propertyPath: target
