@@ -13,7 +13,6 @@ public class CubeController : MonoBehaviour
 	[SerializeField]
 	string button_moveVertical = "Vertical";
 
-	bool isRunning = false;
 	Vector3 moveDirection = Vector3.zero;
 
 	private float speed = 3.5f;
@@ -25,7 +24,6 @@ public class CubeController : MonoBehaviour
 
 	bool isMovable = true;
 
-    public bool IsRunning { get => isRunning; }
     public Vector3 MoveDirection { get => moveDirection; }
     public bool IsMovable { set => isMovable = value; }
 
@@ -67,9 +65,9 @@ public class CubeController : MonoBehaviour
 			if (Input.GetButton("Fire3"))
 			{
 				sp = speed2;
-				isRunning = true;
+				status.IsRunning = true;
 			}
-			else isRunning = false;
+			else status.IsRunning = false;
 
 			//カメラ視点向き
 			Transform cameraTransform = mainCameraTransform;
@@ -84,7 +82,7 @@ public class CubeController : MonoBehaviour
 
 			transform.position += moveDirection * sp * Time.deltaTime;
 
-			if(isRunning)
+			if(status.IsRunning)
             {
 				Quaternion charDirectionQuaternion = Quaternion.LookRotation(moveDirection);
 				transform.rotation = Quaternion.RotateTowards(transform.rotation, charDirectionQuaternion, 180.0f * Time.deltaTime);

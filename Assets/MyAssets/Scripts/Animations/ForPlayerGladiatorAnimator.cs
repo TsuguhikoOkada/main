@@ -39,7 +39,7 @@ public class ForPlayerGladiatorAnimator : GladiatorAnimator
         animator.SetBool(ParamIsArmed, attackCtrl.IsArmed);
         animator.SetFloat(ParamMoveDirectionX, md.x);
         animator.SetFloat(ParamMoveDirectionY, md.y);
-        animator.SetBool(ParamIsRunning, (moveCtrl.IsRunning && md.sqrMagnitude > 0.0f));
+        animator.SetBool(ParamIsRunning, (status.IsRunning && md.sqrMagnitude > 0.0f));
 
         //ãUŒ‚‚ğ•ú‚Á‚½
         if (attackCtrl.DoCommonAttack)

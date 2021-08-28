@@ -29,6 +29,8 @@ public class ForEnemyGladiatorAnimator : GladiatorAnimator
     {
         if (!aIController.IsAcceptOtherActions) return;
 
+        
+
         //移動モーションは、行動状態によって与える値を変える
         Vector2 md = new Vector2(aIController.Navmesh.velocity.x, aIController.Navmesh.velocity.z);
         if (aIController.AiState == Enemy1AIController.AIState.Confronting)
@@ -42,7 +44,7 @@ public class ForEnemyGladiatorAnimator : GladiatorAnimator
             animator.SetFloat(ParamMoveDirectionY, md.magnitude);
         }
         animator.SetBool(ParamIsArmed, aIController.IsArmed);
-        //animator.SetBool(Param_isRunning, (aIController.IsRunning && md.sqrMagnitude > 0.0f));
+        animator.SetBool(ParamIsRunning, (status.IsRunning && md.sqrMagnitude > 0.0f));
 
         //弱攻撃を放った
         if (aIController.DoCommonAttack)
