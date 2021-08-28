@@ -26,6 +26,10 @@ public class CharacterStatus : MonoBehaviour
     [SerializeField]
     int stamina = 20;
 
+    /// <summary>
+    /// ‘–‚Á‚Ä‚¢‚é‚©
+    /// </summary>
+    bool isRunning = false;
 
     /// <summary>
     /// “|‚³‚ê‚½‚©
@@ -43,6 +47,7 @@ public class CharacterStatus : MonoBehaviour
     public int Power { get => power; set => power = value; }
     public int Stamina { get => stamina; set => stamina = value; }
     public bool IsDefeated { get => isDefeated; set => isDefeated = value; }
+    public bool IsRunning { get => isRunning; set => isRunning = value; }
 
 
 

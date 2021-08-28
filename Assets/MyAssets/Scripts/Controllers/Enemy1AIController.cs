@@ -9,6 +9,27 @@ using UnityEngine.AI;
 public class Enemy1AIController : MonoBehaviour
 {
     /// <summary>
+    /// 敵の行動方針
+    /// </summary>
+    public enum AIType
+    {
+        /// <summary>
+        /// ただ近づいて正面から攻撃
+        /// </summary>
+        Breakthrough,
+        /// <summary>
+        /// 相手の行動後を狙って攻撃
+        /// </summary>
+        AfterTheMotion,
+        /// <summary>
+        /// 相手の後ろに向かうように動いて攻撃
+        /// </summary>
+        AroundToTheBack
+    }
+    [SerializeField]
+    AIType aiType = AIType.Breakthrough;
+
+    /// <summary>
     /// 敵の行動状況
     /// </summary>
     public enum AIState : byte
@@ -131,10 +152,11 @@ public class Enemy1AIController : MonoBehaviour
     /// 対峙後再度追跡を開始する、離された距離
     /// </summary>
     float seekAgainDistance = 3.0f;
+
     /// <summary>
     /// 移動時の目的地
     /// </summary>
-    Vector3? destination = null;
+    List<Vector3> destinations = new List<Vector3>();
 
 
 
@@ -148,6 +170,7 @@ public class Enemy1AIController : MonoBehaviour
     public bool IsAcceptOtherActions { get => isAcceptOtherActions; set => isAcceptOtherActions = value; }
     public NavMeshAgent Navmesh { get => navmesh; }
     public AIState AiState { get => aiState; }
+    public AIType AiType { get => aiType; }
 
 
 
@@ -210,7 +233,7 @@ public class Enemy1AIController : MonoBehaviour
         if (status.IsDefeated)
         {
             //目的地削除
-            destination = null;
+            destinations = new List<Vector3>();
 
             //強制的に経路巡行を中断
             navmesh.isStopped = true;
@@ -336,7 +359,7 @@ public class Enemy1AIController : MonoBehaviour
     void StateWander()
     {
         //目的地座標が未定の場合
-        if(destination == null)
+        if(destinations.Count <= 0)
         {
             //目的地となる水平位置の上空10m程度にあたる座標点を作成
             Vector3 destinationBasePos = destinationBase.transform.position;
@@ -352,10 +375,10 @@ public class Enemy1AIController : MonoBehaviour
             if (isfound)
             {
                 //その位置を記録
-                destination = hitInfo.point;
+                destinations.Add(hitInfo.point);
 
                 //移動先に決定
-                navmesh.SetDestination((Vector3)destination);
+                navmesh.SetDestination(destinations[0]);
 
                 //経路巡行を開始
                 navmesh.isStopped = false;
@@ -363,10 +386,10 @@ public class Enemy1AIController : MonoBehaviour
         }
 
         //目的地に近づいた
-        if (Vector3.SqrMagnitude(transform.position - (Vector3)destination) <= Mathf.Pow(1.0f, 2.0f))
+        if (Vector3.SqrMagnitude(transform.position - destinations[0]) <= Mathf.Pow(1.0f, 2.0f))
         {
             //目的地削除
-            destination = null;
+            destinations = new List<Vector3>();
 
             //Idle状態へ
             aiState = AIState.Idle;
@@ -384,8 +407,32 @@ public class Enemy1AIController : MonoBehaviour
     /// </summary>
     void StateSeek()
     {
+        //水平座標における目的地
+        Vector3 destination2D = target.transform.position;
+
+        //走行状態
+        status.IsRunning = true;
+        navmesh.speed = 5.0f;
+
+        //回り込み作戦なら
+        if (aiType == AIType.AroundToTheBack)
+        {
+            //ターゲットから見て右側か左側どちらにいるか
+            if(Vector3.SqrMagnitude(transform.position - (destination2D + target.transform.right)) < Vector3.SqrMagnitude(transform.position - (destination2D - target.transform.right)))
+            {
+                //相手の右後方を目指す
+                destination2D += target.transform.right * 2.0f;
+            }
+            else
+            {
+                //相手の左後方を目指す
+                destination2D -= target.transform.right * 2.0f;
+            }
+            destination2D -= target.transform.forward;
+        }
+
         //追跡・攻撃対象となる敵の水平位置の上空10m程度にあたる座標点を作成
-        Vector3 destination2D = target.transform.position + Vector3.up * 10.0f;
+        destination2D += Vector3.up * 10.0f;
 
         //上空10m程度にあたる座標点から真下の地形に向けRayを落とす
         RaycastHit hitInfo;
@@ -395,23 +442,27 @@ public class Enemy1AIController : MonoBehaviour
         if (isfound)
         {
             //その位置を記録
-            destination = hitInfo.point;
+            destinations.Add(hitInfo.point);
 
             //移動先に決定
-            navmesh.SetDestination((Vector3)destination);
+            navmesh.SetDestination(destinations[0]);
 
             //経路巡行を開始
             navmesh.isStopped = false;
         }
 
         //追跡対象に、とるべき間合いまで接近した
-        if (Vector3.SqrMagnitude(transform.position - (Vector3)destination) <= Mathf.Pow(confrontDistance, 2.0f))
+        if (Vector3.SqrMagnitude(transform.position - destinations[0]) <= Mathf.Pow(confrontDistance, 2.0f))
         {
             //目的地削除
-            destination = null;
+            destinations = new List<Vector3>();
 
             //強制的に経路巡行を中断
             navmesh.isStopped = true;
+
+            //歩行状態
+            status.IsRunning = false;
+            navmesh.speed = 3.5f;
 
             //Confronting状態へ
             aiState = AIState.Confronting;
@@ -426,7 +477,7 @@ public class Enemy1AIController : MonoBehaviour
         transform.LookAt(target.transform);
 
         //目的地座標が未定の場合
-        if (destination == null)
+        if (destinations.Count <= 0)
         {
             /* 以下、targetの周囲を旋回するような目的地を設定 */
             Vector3 destination2D = transform.position 
@@ -441,10 +492,10 @@ public class Enemy1AIController : MonoBehaviour
             if (isfound)
             {
                 //その位置を記録
-                destination = hitInfo.point;
+                destinations.Add(hitInfo.point);
 
                 //移動先に決定
-                navmesh.SetDestination((Vector3)destination);
+                navmesh.SetDestination(destinations[0]);
 
                 //経路巡行を開始
                 navmesh.isStopped = false;
@@ -452,10 +503,10 @@ public class Enemy1AIController : MonoBehaviour
         }
 
         //目的地に近づいた
-        if (Vector3.SqrMagnitude(transform.position - (Vector3)destination) <= Mathf.Pow(0.1f, 2.0f))
+        if (Vector3.SqrMagnitude(transform.position - destinations[0]) <= Mathf.Pow(0.1f, 2.0f))
         {
             //目的地削除
-            destination = null;
+            destinations = new List<Vector3>();
 
             //好戦的度合に基づいて、攻撃か再度移動かを決定
             if(Random.value <= warlikeRatio)
