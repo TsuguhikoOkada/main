@@ -151,7 +151,7 @@ public class Enemy1AIController : MonoBehaviour
     /// <summary>
     /// 対峙後再度追跡を開始する、離された距離
     /// </summary>
-    float seekAgainDistance = 3.0f;
+    float seekAgainDistance = 4.0f;
 
     /// <summary>
     /// 移動時の目的地
@@ -421,12 +421,12 @@ public class Enemy1AIController : MonoBehaviour
             if(Vector3.SqrMagnitude(transform.position - (destination2D + target.transform.right)) < Vector3.SqrMagnitude(transform.position - (destination2D - target.transform.right)))
             {
                 //相手の右後方を目指す
-                destination2D += target.transform.right * 2.0f;
+                destination2D += target.transform.right * 1.5f;
             }
             else
             {
                 //相手の左後方を目指す
-                destination2D -= target.transform.right * 2.0f;
+                destination2D -= target.transform.right * 1.5f;
             }
             destination2D -= target.transform.forward;
         }
@@ -566,6 +566,6 @@ public class Enemy1AIController : MonoBehaviour
     /// </summary>
     void StateFlee()
     {
-
+        
     }
 }
